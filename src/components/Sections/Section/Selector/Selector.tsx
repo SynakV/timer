@@ -18,7 +18,7 @@ export const Selector = () => {
   };
 
   return (
-    <>
+    <div className="flex gap-2">
       {!!timers.length && (
         <>
           <Select value={timer?.id}>
@@ -41,6 +41,6 @@ export const Selector = () => {
         </>
       )}
       <Add />
-    </>
+    </div>
   );
 };

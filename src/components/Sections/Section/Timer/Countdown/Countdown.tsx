@@ -3,7 +3,7 @@ import { useCountdown } from "@/utils/hooks/useCountdown";
 
 interface Props {
   time: number;
-  isStart: boolean;
+  isStarted: boolean;
   onTimeout: () => void;
   onMinute: () => void;
   onHalfMinute: () => void;
@@ -11,12 +11,12 @@ interface Props {
 
 export const Countdown: FC<Props> = ({
   time,
-  isStart,
+  isStarted,
   onTimeout,
   onMinute,
   onHalfMinute,
 }) => {
-  const { minutes, seconds } = useCountdown(time, isStart);
+  const { minutes, seconds } = useCountdown(time, isStarted);
 
   useEffect(() => {
     if (minutes <= 0 && seconds <= 0) {
@@ -33,8 +33,8 @@ export const Countdown: FC<Props> = ({
   console.log(seconds);
 
   return (
-    <div className="w-[100vw] text-[40vw] font-mono">
+    <>
       {minutes}:{seconds > 9 ? seconds : `0${seconds}`}
-    </div>
+    </>
   );
 };

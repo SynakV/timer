@@ -1,19 +1,39 @@
 import { useEffect, useState } from "react";
 
-export const useCountdown = (targetDate: number, isStart: boolean) => {
-  const countDownDate = new Date(targetDate).getTime();
+export const useCountdown = (targetDate: number, isStarted: boolean) => {
+  const [countDownDate, setCountDownDate] = useState(
+    new Date(targetDate).getTime()
+  );
 
   const [countDown, setCountDown] = useState(
     countDownDate - new Date().getTime()
   );
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCountDown(countDownDate - new Date().getTime());
-    }, 1000);
+    setCountDown(new Date(targetDate).getTime() - new Date().getTime());
+  }, [isStarted, targetDate]);
 
-    return () => clearInterval(interval);
-  }, [countDownDate]);
+  useEffect(() => {
+    let interval: NodeJS.Timer | null = null;
+
+    if (isStarted) {
+      interval = setInterval(() => {
+        setCountDown(countDownDate - new Date().getTime());
+      }, 1000);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [countDownDate, isStarted]);
+
+  useEffect(() => {
+    if (!isStarted) {
+      setCountDownDate(new Date(targetDate).getTime());
+    }
+  }, [isStarted]);
 
   return getReturnValues(countDown);
 };

@@ -2,7 +2,8 @@ import { TimerType } from "./types";
 import { FC, useState, ReactNode, useContext, createContext } from "react";
 
 interface ITimerValues {
-  isStart: boolean;
+  isStarted: boolean;
+  isStopped: boolean;
   timers: TimerType[];
   timer: TimerType | null;
 }
@@ -14,7 +15,8 @@ interface ITimerContext extends ITimerValues {
 const DEFAULT_VALUES: ITimerContext = {
   timers: [],
   timer: null,
-  isStart: false,
+  isStarted: false,
+  isStopped: false,
   setTimer: () => {},
 };
 

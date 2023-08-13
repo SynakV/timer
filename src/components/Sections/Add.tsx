@@ -11,7 +11,7 @@ type ValuesType = string;
 const VALUES = {
   name: "Section",
 } as {
-  name?: string;
+  name?: ValuesType;
 };
 
 export const Add = () => {

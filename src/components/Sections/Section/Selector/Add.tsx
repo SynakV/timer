@@ -81,7 +81,7 @@ export const Add = () => {
                   handleChangeValues({ minutes: +e.target.value })
                 }
               />
-              <span className="text-center col-span-1 h-8">:</span>
+              <span className="text-center col-span-1">:</span>
               <Input
                 min={0}
                 max={59}

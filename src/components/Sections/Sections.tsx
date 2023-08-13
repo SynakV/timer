@@ -10,8 +10,8 @@ export const Sections = () => {
   const { section: currSection, sections, setSection } = useSection();
 
   return (
-    <>
-      <Tabs value={currSection?.id} className="w-[400px]">
+    <div className="flex flex-col items-center w-[100vw] h-[100vh]">
+      <Tabs value={currSection?.id} className="flex gap-2 mt-5 mb-5">
         {!!sections.length && (
           <>
             <TabsList>
@@ -33,13 +33,15 @@ export const Sections = () => {
       {sections.map((section) => (
         <div
           key={section.id}
-          style={{ display: section.id === currSection?.id ? "block" : "none" }}
+          style={{
+            display: section.id === currSection?.id ? "block" : "none",
+          }}
         >
           <TimerProvider>
             <Section />
           </TimerProvider>
         </div>
       ))}
-    </>
+    </div>
   );
 };
