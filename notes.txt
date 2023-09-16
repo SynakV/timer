@@ -1,0 +1,62 @@
+// import { useEffect, useState } from "react";
+// import { Countdown } from "../../Countdown/Countdown";
+// import { getSeconds } from "@/utils/hooks/useCountdown";
+// import { useTraining } from "@/utils/contexts/TimerContext/TimerContext";
+
+// export const Regular = () => {
+//   const DEFAULT_TIME = getSeconds(120);
+
+//   const { isStarted, isStop } = useTraining();
+
+//   const [time, setTime] = useState<number>(DEFAULT_TIME);
+
+//   const handleOnHalfMinute = () => {
+//     console.log("half minute");
+//   };
+
+//   const handleOnMinute = () => {
+//     console.log("minute");
+//   };
+
+//   const handleOnTimeout = () => {
+//     console.log("time is out");
+//   };
+
+//   useEffect(() => {
+//     setTime(DEFAULT_TIME);
+//   }, [isStarted, isStop]);
+
+//   return (
+//     <Countdown
+//       date={time}
+//       isStarted={isStarted}
+//       onTimeout={handleOnTimeout}
+//       onMinute={handleOnMinute}
+//       onHalfMinute={handleOnHalfMinute}
+//     />
+//   );
+// };
+
+// import { useEffect, useState } from "react";
+// import { Countdown } from "../../Countdown/Countdown";
+// import { getSeconds } from "@/utils/hooks/useCountdown";
+// import { useTraining } from "@/utils/contexts/TimerContext/TimerContext";
+
+// export const SularFibular = () => {
+//   const DEFAULT_TIME = getSeconds(150);
+//   const { isStarted, isStop } = useTraining();
+
+//   const [time, setTime] = useState<number>(DEFAULT_TIME);
+
+//   const handleOnTimeout = () => {
+//     console.log("time is out");
+//   };
+
+//   useEffect(() => {
+//     setTime(DEFAULT_TIME);
+//   }, [isStarted, isStop]);
+
+//   return (
+//     <Countdown date={time} isStarted={isStarted} onTimeout={handleOnTimeout} />
+//   );
+// };

@@ -4,7 +4,7 @@ import { getTime } from "@/utils/hooks/useCountdown";
 import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
 
 export const Timer = () => {
-  const { isStarted, timer } = useTimer();
+  const { isStarted, timer, isStopped } = useTimer();
   const [time, setTime] = useState(getTime(timer!.time));
 
   const handleOnTimeout = () => {
@@ -20,12 +20,8 @@ export const Timer = () => {
   };
 
   useEffect(() => {
-    if (isStarted && timer) {
-      setTime(getTime(timer!.time));
-    }
-  }, [isStarted, timer]);
-
-  console.log(time);
+    setTime(getTime(timer!.time));
+  }, [isStarted, isStopped, timer]);
 
   return (
     <Countdown

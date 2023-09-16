@@ -10,7 +10,9 @@ export const useCountdown = (targetDate: number, isStarted: boolean) => {
   );
 
   useEffect(() => {
-    setCountDown(new Date(targetDate).getTime() - new Date().getTime());
+    if (isStarted) {
+      setCountDown(new Date(targetDate).getTime() - new Date().getTime());
+    }
   }, [isStarted, targetDate]);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export const useCountdown = (targetDate: number, isStarted: boolean) => {
     if (!isStarted) {
       setCountDownDate(new Date(targetDate).getTime());
     }
-  }, [isStarted]);
+  }, [isStarted, targetDate]);
 
   return getReturnValues(countDown);
 };
@@ -50,4 +52,4 @@ const getReturnValues = (countDown: number) => {
 };
 
 export const getTime = (time: { minutes: number; seconds: number }) =>
-  new Date().getTime() + (time.minutes * 60 + time.seconds) * 1000;
+  new Date().getTime() + (time.minutes * 60 + time.seconds + 1) * 1000;
