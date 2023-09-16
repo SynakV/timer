@@ -77,6 +77,6 @@
   }
 }
 
-html {
-  overflow: hidden;
-}
+/* html {
+  overflow-x: hidden;
+} */

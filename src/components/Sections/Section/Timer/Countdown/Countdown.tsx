@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { Timeline } from "../../Timeline/Timeline";
+import { playAudio } from "@/utils/helpers/audio.helper";
 import { useCountdown } from "@/utils/hooks/useCountdown";
 import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
 
@@ -21,6 +22,7 @@ export const Countdown: FC<Props> = ({
 
   useEffect(() => {
     if (minutes <= 0 && seconds <= 0) {
+      playAudio("timeout");
       setTimer({ isStopped: true, isStarted: false });
       return onTimeout();
     }

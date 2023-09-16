@@ -10,7 +10,7 @@ export const Sections = () => {
   const { section: currSection, sections, setSection } = useSection();
 
   return (
-    <div className="flex flex-col items-center w-[100vw] h-[100vh]">
+    <div className="flex flex-col items-center w-[100vw] h-[100vh] overflow-hidden">
       <Tabs value={currSection?.id} className="flex gap-2 mt-5 mb-5">
         {!!sections.length && (
           <>

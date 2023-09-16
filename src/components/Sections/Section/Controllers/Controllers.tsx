@@ -9,7 +9,10 @@ export const Controllers = () => {
     setTimer({ isStarted: !isStarted });
   };
   return (
-    <Button onClick={handleSwitchIsStarted}>
+    <Button
+      variant={isStarted ? "destructive" : "success"}
+      onClick={handleSwitchIsStarted}
+    >
       {isStarted ? "Stop" : "Start"}
     </Button>
   );
