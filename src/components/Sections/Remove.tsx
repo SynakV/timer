@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Button } from "../ui/button";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
@@ -12,5 +13,9 @@ export const Remove = () => {
     });
   };
 
-  return <Button onClick={handleRemoveSection}>-</Button>;
+  return (
+    <Button onClick={handleRemoveSection}>
+      <Image src="/icons/minus.svg" width={15} height={20} alt="minus" />
+    </Button>
+  );
 };

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -48,7 +49,9 @@ export const Add = () => {
   return (
     <Popover open={isOpen}>
       <PopoverTrigger asChild onClick={handleToggleIsOpen}>
-        <Button>+</Button>
+        <Button>
+          <Image src="/icons/plus.svg" width={15} height={20} alt="plus" />
+        </Button>
       </PopoverTrigger>
       <PopoverContent>
         <div className="grid gap-4">
