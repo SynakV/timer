@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import { TimerType } from "@/utils/contexts/TimerContext/types";
 import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type ValuesType = string | number;
 
@@ -121,7 +127,7 @@ export const Add = () => {
                     id="name"
                     type="text"
                     className="h-10"
-                    value={values.name}
+                    defaultValue={currTimer?.name || values.name}
                     onChange={(e) =>
                       handleChangeValues({ name: e.target.value })
                     }
@@ -137,8 +143,8 @@ export const Add = () => {
                       max={99}
                       id="minutes"
                       type="number"
-                      value={values.minutes}
                       className="col-span-5 h-10"
+                      defaultValue={currTimer?.time.minutes || values.minutes}
                       onChange={(e) =>
                         handleChangeValues({ minutes: +e.target.value })
                       }
@@ -149,8 +155,8 @@ export const Add = () => {
                       max={59}
                       id="seconds"
                       type="number"
-                      value={values.seconds}
                       className="col-span-5 h-10"
+                      defaultValue={currTimer?.time.seconds || values.seconds}
                       onChange={(e) =>
                         handleChangeValues({ seconds: +e.target.value })
                       }
@@ -161,30 +167,48 @@ export const Add = () => {
             </div>
             {isAnyTimers && (
               <div className="grid col-span-1 items-center gap-4">
-                <Button
-                  className="col-span-3"
-                  onClick={() => handleEditTimer("name")}
-                >
-                  <Image
-                    width={15}
-                    height={15}
-                    alt="pencil"
-                    className="h-10"
-                    src="/icons/pencil.svg"
-                  />
-                </Button>
-                <Button
-                  className="col-span-3"
-                  onClick={() => handleEditTimer("time")}
-                >
-                  <Image
-                    width={15}
-                    height={15}
-                    alt="pencil"
-                    className="h-10"
-                    src="/icons/pencil.svg"
-                  />
-                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        className="col-span-3"
+                        onClick={() => handleEditTimer("name")}
+                      >
+                        <Image
+                          width={15}
+                          height={15}
+                          alt="pencil"
+                          className="h-10"
+                          src="/icons/pencil.svg"
+                        />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Edit name</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        className="col-span-3"
+                        onClick={() => handleEditTimer("time")}
+                      >
+                        <Image
+                          width={15}
+                          height={15}
+                          alt="pencil"
+                          className="h-10"
+                          src="/icons/pencil.svg"
+                        />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Edit time</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             )}
           </div>
