@@ -8,15 +8,15 @@ export const Timer = () => {
   const [time, setTime] = useState(getTime(timer!.time));
 
   const handleOnTimeout = () => {
-    console.log("timeout");
+    console.warn("timeout");
   };
 
   const handleOnMinute = () => {
-    console.log("minute");
+    console.warn("minute");
   };
 
   const handleOnHalfMinute = () => {
-    console.log("half minute");
+    console.warn("half minute");
   };
 
   useEffect(() => {
@@ -26,7 +26,6 @@ export const Timer = () => {
   return (
     <Countdown
       time={time}
-      isStarted={isStarted}
       onTimeout={handleOnTimeout}
       onMinute={handleOnMinute}
       onHalfMinute={handleOnHalfMinute}

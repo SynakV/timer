@@ -40,7 +40,12 @@ export const Add = () => {
   const handleAddTimer = () => {
     const timer = getTimer(values);
 
-    setTimer({ timer, timers: [...timers, timer] });
+    setTimer({
+      timer,
+      isStopped: true,
+      isStarted: false,
+      timers: [...timers, timer],
+    });
     handleToggleIsOpen();
   };
 

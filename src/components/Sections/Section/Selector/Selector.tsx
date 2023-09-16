@@ -13,25 +13,25 @@ import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
 export const Selector = () => {
   const { timer, timers, setTimer } = useTimer();
 
-  const handleSetTimer = (id: string) => {
-    setTimer({ timer: timers.find((timer) => timer.id === id) });
+  const handleSelectTimer = (id: string) => {
+    setTimer({
+      isStopped: true,
+      isStarted: false,
+      timer: timers.find((timer) => timer.id === id),
+    });
   };
 
   return (
     <div className="flex gap-2">
       {!!timers.length && (
         <>
-          <Select value={timer?.id}>
+          <Select onValueChange={handleSelectTimer} value={timer?.id}>
             <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select timer" />
             </SelectTrigger>
             <SelectContent>
               {timers.map((timer) => (
-                <SelectItem
-                  onClick={() => handleSetTimer(timer.id)}
-                  value={timer.id}
-                  key={timer.id}
-                >
+                <SelectItem value={timer.id} key={timer.id}>
                   {timer.name}
                 </SelectItem>
               ))}

@@ -14,9 +14,9 @@ export const Section = () => {
         {timer && <Controllers />}
       </div>
       <div
-        className={`w-[100vw] text-center font-mono text-[40vw] leading-[125%]`}
+        className={`w-[100vw] text-center font-mono text-[33vw] leading-[140%]`}
       >
-        {timer ? <Timer /> : <div className="text-[13vw]">Choose timer</div>}
+        {timer ? <Timer /> : <div className="text-[13vw]">Create timer</div>}
       </div>
     </>
   );

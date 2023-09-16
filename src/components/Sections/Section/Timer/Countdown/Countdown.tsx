@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from "react";
+import { FC, useEffect } from "react";
+import { Timeline } from "../../Timeline/Timeline";
 import { useCountdown } from "@/utils/hooks/useCountdown";
 import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
 
 interface Props {
   time: number;
-  isStarted: boolean;
   onTimeout: () => void;
   onMinute: () => void;
   onHalfMinute: () => void;
@@ -12,12 +12,11 @@ interface Props {
 
 export const Countdown: FC<Props> = ({
   time,
-  isStarted,
   onTimeout,
   onMinute,
   onHalfMinute,
 }) => {
-  const { timer, setTimer } = useTimer();
+  const { isStarted, setTimer } = useTimer();
   const { minutes, seconds } = useCountdown(time, isStarted);
 
   useEffect(() => {
@@ -33,10 +32,12 @@ export const Countdown: FC<Props> = ({
     }
   }, [minutes, seconds]);
 
-  const getTimeDisplay = (minutes: number, seconds: number) =>
-    `${minutes}:${seconds > 9 ? seconds : "0" + seconds}`;
-
-  return isStarted
-    ? getTimeDisplay(minutes, seconds)
-    : getTimeDisplay(timer!.time.minutes, timer!.time.seconds);
+  return (
+    <>
+      {`${minutes > 9 ? minutes : "0" + minutes}:${
+        seconds > 9 ? seconds : "0" + seconds
+      }`}
+      <Timeline time={time} spent={{ minutes, seconds }} />
+    </>
+  );
 };

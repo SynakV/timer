@@ -7,8 +7,8 @@ export const Remove = () => {
 
   const handleRemoveTimer = () => {
     setTimer({
-      timer: timers[0] ? timers[0] : null,
-      timers: timers.filter((timer) => timer.id !== currTimer?.id),
+      timer: timers[0] && timers.length > 1 ? timers[0] : null,
+      timers: timers.filter((timer) => timer.id !== currTimer!.id),
     });
   };
 
