@@ -97,7 +97,6 @@ export const Add = () => {
   });
 
   const isAnyTimers = !!timers.length;
-  const colSpan = isAnyTimers ? 4 : 5;
 
   return (
     <Popover open={isOpen}>
@@ -116,7 +115,7 @@ export const Add = () => {
           <div className="grid grid-cols-5 gap-2">
             <div
               className="grid items-center gap-4"
-              style={{ gridColumn: `span ${colSpan} / span ${colSpan}` }}
+              style={{ gridColumn: `span ${isAnyTimers ? 4 : 5}` }}
             >
               <div className="grid grid-cols-7 items-center gap-4">
                 <Label className="col-span-2" htmlFor="width">
