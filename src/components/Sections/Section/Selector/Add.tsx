@@ -87,8 +87,6 @@ export const Add = () => {
     });
   };
 
-  const isAnyTimers = !!timers.length;
-
   const getTimer = (values: typeof VALUES): TimerType => ({
     id: Math.random().toString(),
     name: values.name as string,
@@ -98,10 +96,13 @@ export const Add = () => {
     },
   });
 
+  const isAnyTimers = !!timers.length;
+  const colSpan = isAnyTimers ? 4 : 5;
+
   return (
     <Popover open={isOpen}>
       <PopoverTrigger asChild onClick={handleToggleIsOpen}>
-        <Button>
+        <Button variant="warn">
           <Image
             width={15}
             height={20}
@@ -114,9 +115,8 @@ export const Add = () => {
         <div className="grid gap-4">
           <div className="grid grid-cols-5 gap-2">
             <div
-              className={`grid col-span-${
-                isAnyTimers ? 4 : 5
-              } items-center gap-4`}
+              className="grid items-center gap-4"
+              style={{ gridColumn: `span ${colSpan} / span ${colSpan}` }}
             >
               <div className="grid grid-cols-7 items-center gap-4">
                 <Label className="col-span-2" htmlFor="width">
