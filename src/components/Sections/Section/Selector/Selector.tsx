@@ -8,29 +8,41 @@ import {
 import React from "react";
 import { Add } from "./Add";
 import { Remove } from "./Remove";
-import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Selector = () => {
-  const { timer, timers, setTimer } = useTimer();
+  const { section: currSection, sections, setSection } = useSection();
 
   const handleSelectTimer = (id: string) => {
-    setTimer({
-      isStopped: true,
-      isStarted: false,
-      timer: timers.find((timer) => timer.id === id),
+    setSection({
+      sections: sections.map((section) => {
+        if (section.id === currSection?.id) {
+          return {
+            ...section,
+            isStopped: true,
+            isStarted: false,
+            selectedTimerId: id,
+          };
+        }
+
+        return section;
+      }),
     });
   };
 
   return (
     <div className="flex gap-2">
-      {!!timers.length && (
+      {!!currSection?.timers.length && (
         <>
-          <Select onValueChange={handleSelectTimer} value={timer?.id}>
+          <Select
+            value={currSection?.timer?.id}
+            onValueChange={handleSelectTimer}
+          >
             <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Select timer" />
             </SelectTrigger>
             <SelectContent>
-              {timers.map((timer) => (
+              {currSection?.timers.map((timer) => (
                 <SelectItem value={timer.id} key={timer.id}>
                   {timer.name}
                 </SelectItem>

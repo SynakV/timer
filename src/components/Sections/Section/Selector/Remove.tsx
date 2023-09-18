@@ -1,15 +1,29 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Remove = () => {
-  const { timer: currTimer, timers, setTimer } = useTimer();
+  const { section: currSection, sections, setSection } = useSection();
 
   const handleRemoveTimer = () => {
-    setTimer({
-      timer: timers[0] && timers.length > 1 ? timers[0] : null,
-      timers: timers.filter((timer) => timer.id !== currTimer!.id),
+    setSection({
+      sections: sections.map((section) => {
+        if (section.id === currSection?.id) {
+          return {
+            ...section,
+            selectedTimerId:
+              section.timers[0].id && section.timers.length > 1
+                ? section.timers[0].id
+                : null,
+            timers: section.timers.filter(
+              (timer) => timer.id !== section.timer!.id
+            ),
+          };
+        }
+
+        return section;
+      }),
     });
   };
 

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { getTime } from "@/utils/hooks/useCountdown";
-import { TimerType } from "@/utils/contexts/TimerContext/types";
+import { TimerType } from "@/utils/contexts/SectionContext/types";
 
 interface Props {
   time: number;

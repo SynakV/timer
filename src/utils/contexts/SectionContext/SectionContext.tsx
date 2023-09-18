@@ -4,6 +4,7 @@ import { SectionType } from "./types";
 interface ISectionValues {
   sections: SectionType[];
   section: SectionType | null;
+  selectedSectionId: string | null;
 }
 
 interface ISectionContext extends ISectionValues {
@@ -14,6 +15,7 @@ const DEFAULT_VALUES: ISectionContext = {
   sections: [],
   section: null,
   setSection: () => {},
+  selectedSectionId: null,
 };
 
 export const SectionContext = createContext<ISectionContext>(DEFAULT_VALUES);
@@ -23,18 +25,36 @@ interface Props {
 }
 
 export const SectionProvider: FC<Props> = ({ children }) => {
-  const [section, setSection] = useState<ISectionValues>(DEFAULT_VALUES);
+  const [values, setValues] = useState<ISectionValues>(DEFAULT_VALUES);
 
   const handleSetSection = (values: Partial<ISectionValues>) => {
-    setSection((prev) => ({
+    setValues((prev) => ({
       ...prev,
       ...values,
     }));
   };
 
+  console.log(values.sections);
+
   return (
     <SectionContext.Provider
-      value={{ ...section, setSection: handleSetSection }}
+      value={{
+        ...{
+          ...values,
+          section:
+            values.sections.find(
+              (section) => section.id === values.selectedSectionId
+            ) || null,
+          sections: values.sections.map((section) => ({
+            ...section,
+            timer:
+              section.timers.find(
+                (timer) => timer.id === section.selectedTimerId
+              ) || null,
+          })),
+        },
+        setSection: handleSetSection,
+      }}
     >
       {children}
     </SectionContext.Provider>

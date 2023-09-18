@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { TimerType } from "@/utils/contexts/TimerContext/types";
-import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
-import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { TimerType } from "@/utils/contexts/SectionContext/types";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
 
 type ValuesType = string | number;
 
@@ -29,7 +29,7 @@ export const Add = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState(VALUES);
 
-  const { timer: currTimer, timers, setTimer } = useTimer();
+  const { section: currSection, sections, setSection } = useSection();
 
   const handleToggleIsOpen = () => {
     setIsOpen((prev) => !prev);
@@ -47,11 +47,20 @@ export const Add = () => {
   const handleAddTimer = () => {
     const timer = getTimer(values);
 
-    setTimer({
-      timer,
-      isStopped: true,
-      isStarted: false,
-      timers: [...timers, timer],
+    setSection({
+      sections: sections.map((section) => {
+        if (section.id === currSection?.id) {
+          return {
+            ...section,
+            isStopped: true,
+            isStarted: false,
+            selectedTimerId: timer.id,
+            timers: [...section.timers, timer],
+          };
+        }
+
+        return section;
+      }),
     });
 
     handleToggleIsOpen();
@@ -69,22 +78,44 @@ export const Add = () => {
           }),
     };
 
-    setTimer({
-      timer: {
-        ...currTimer!,
-        ...timerValues,
-      },
-      timers: timers.map((timer) => {
-        if (timer.id === currTimer?.id) {
+    setSection({
+      sections: sections.map((section) => {
+        if (section.id === currSection?.id) {
           return {
-            ...timer,
-            ...timerValues,
+            ...section,
+            timers: section.timers.map((timer) => {
+              if (timer.id === section.timer?.id) {
+                return {
+                  ...timer,
+                  ...timerValues,
+                };
+              }
+
+              return timer;
+            }),
           };
         }
 
-        return timer;
+        return section;
       }),
     });
+
+    // setTimer({
+    //   timer: {
+    //     ...currTimer!,
+    //     ...timerValues,
+    //   },
+    //   timers: timers.map((timer) => {
+    //     if (timer.id === currTimer?.id) {
+    //       return {
+    //         ...timer,
+    //         ...timerValues,
+    //       };
+    //     }
+
+    //     return timer;
+    //   }),
+    // });
   };
 
   const getTimer = (values: typeof VALUES): TimerType => ({
@@ -96,7 +127,9 @@ export const Add = () => {
     },
   });
 
-  const isAnyTimers = !!timers.length;
+  // const currTimer =
+
+  const isAnyTimers = !!currSection?.timers.length;
 
   return (
     <Popover open={isOpen}>
@@ -126,7 +159,7 @@ export const Add = () => {
                     id="name"
                     type="text"
                     className="h-10"
-                    defaultValue={currTimer?.name || values.name}
+                    defaultValue={currSection?.timer?.name || values.name}
                     onChange={(e) =>
                       handleChangeValues({ name: e.target.value })
                     }
@@ -143,7 +176,9 @@ export const Add = () => {
                       id="minutes"
                       type="number"
                       className="col-span-5 h-10"
-                      defaultValue={currTimer?.time.minutes || values.minutes}
+                      defaultValue={
+                        currSection?.timer?.time.minutes || values.minutes
+                      }
                       onChange={(e) =>
                         handleChangeValues({ minutes: +e.target.value })
                       }
@@ -155,7 +190,9 @@ export const Add = () => {
                       id="seconds"
                       type="number"
                       className="col-span-5 h-10"
-                      defaultValue={currTimer?.time.seconds || values.seconds}
+                      defaultValue={
+                        currSection?.timer?.time.seconds || values.seconds
+                      }
                       onChange={(e) =>
                         handleChangeValues({ seconds: +e.target.value })
                       }

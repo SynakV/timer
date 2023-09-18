@@ -3,15 +3,16 @@ import { Add } from "./Add";
 import { Remove } from "./Remove";
 import { Section } from "./Section/Section";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
-import { TimerProvider } from "@/utils/contexts/TimerContext/TimerContext";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Sections = () => {
-  const { section: currSection, sections, setSection } = useSection();
+  const { section, sections, setSection } = useSection();
+
+  // console.log(section?.id);
 
   return (
     <div className="flex flex-col items-center w-[100vw] h-[100vh] overflow-hidden">
-      <Tabs value={currSection?.id} className="flex gap-2 mt-5 mb-5">
+      <Tabs value={section?.id} className="flex gap-2 mt-5 mb-5">
         {!!sections.length && (
           <>
             <TabsList>
@@ -34,12 +35,10 @@ export const Sections = () => {
         <div
           key={section.id}
           style={{
-            display: section.id === currSection?.id ? "block" : "none",
+            display: section.id === section?.id ? "block" : "none",
           }}
         >
-          <TimerProvider>
-            <Section />
-          </TimerProvider>
+          <Section />
         </div>
       ))}
     </div>

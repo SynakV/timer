@@ -8,7 +8,7 @@ export const Remove = () => {
 
   const handleRemoveSection = () => {
     setSection({
-      section: sections[0] ? sections[0] : null,
+      selectedSectionId: sections[0].id ? sections[0].id : null,
       sections: sections.filter((section) => section.id !== currSection?.id),
     });
   };

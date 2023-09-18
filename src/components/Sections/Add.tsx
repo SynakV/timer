@@ -37,13 +37,22 @@ export const Add = () => {
   const handleAddSection = () => {
     const section = getSection(values);
 
-    setSection({ section: section, sections: [...sections, section] });
+    setSection({
+      selectedSectionId: section.id,
+      sections: [...sections, section],
+    });
+
     handleToggleIsOpen();
   };
 
   const getSection = (values: typeof VALUES): SectionType => ({
     id: Math.random().toString(),
     name: values.name as string,
+    isStarted: false,
+    isStopped: false,
+    timer: null,
+    timers: [],
+    selectedTimerId: null,
   });
 
   return (
