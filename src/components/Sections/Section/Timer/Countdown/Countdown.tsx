@@ -2,7 +2,8 @@ import { FC, useEffect } from "react";
 import { Timeline } from "../../Timeline/Timeline";
 import { playAudio } from "@/utils/helpers/audio.helper";
 import { getTime, useCountdown } from "@/utils/hooks/useCountdown";
-import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 interface Props {
   time: number;
@@ -17,13 +18,29 @@ export const Countdown: FC<Props> = ({
   onMinute,
   onHalfMinute,
 }) => {
-  const { isStarted, setTimer } = useTimer();
-  const { minutes, seconds } = useCountdown(time, isStarted);
+  const { section } = useSection();
+  const { setSections } = useSections();
+  const { minutes, seconds } = useCountdown(time, section!.isStarted);
 
   useEffect(() => {
     if (minutes <= 0 && seconds <= 0) {
       playAudio("timeout");
-      setTimer({ isStopped: true, isStarted: false });
+
+      setSections((prev) => ({
+        ...prev,
+        sections: prev.sections.map((section) => {
+          if (section.id === prev.selectedSectionId) {
+            return {
+              ...section,
+              isStopped: true,
+              isStarted: false,
+            };
+          }
+
+          return section;
+        }),
+      }));
+
       return onTimeout();
     }
     if (minutes > 0 && seconds === 0) {
@@ -56,8 +73,8 @@ export const Countdown: FC<Props> = ({
         }`}
       </span>
       <Timeline
-        isStarted={isStarted}
         color={getTimeColor()}
+        isStarted={section!.isStarted}
         timeRemainInPercentage={timeRemainInPercentage}
       />
     </>

@@ -1,40 +1,27 @@
-import { FC, useState, ReactNode, useContext, createContext } from "react";
-import { SectionType } from "./types";
+import { FC, ReactNode, useContext, createContext } from "react";
+import { SectionType } from "../SectionsContext/types";
 
-interface ISectionValues {
-  sections: SectionType[];
+interface ISectionContext {
   section: SectionType | null;
 }
 
-interface ISectionContext extends ISectionValues {
-  setSection: (values: Partial<ISectionValues>) => void;
-}
-
 const DEFAULT_VALUES: ISectionContext = {
-  sections: [],
   section: null,
-  setSection: () => {},
 };
 
 export const SectionContext = createContext<ISectionContext>(DEFAULT_VALUES);
 
 interface Props {
   children: ReactNode;
+  section: SectionType | null;
 }
 
-export const SectionProvider: FC<Props> = ({ children }) => {
-  const [section, setSection] = useState<ISectionValues>(DEFAULT_VALUES);
-
-  const handleSetSection = (values: Partial<ISectionValues>) => {
-    setSection((prev) => ({
-      ...prev,
-      ...values,
-    }));
-  };
-
+export const SectionProvider: FC<Props> = ({ section, children }) => {
   return (
     <SectionContext.Provider
-      value={{ ...section, setSection: handleSetSection }}
+      value={{
+        section,
+      }}
     >
       {children}
     </SectionContext.Provider>

@@ -1,16 +1,21 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 export const Remove = () => {
-  const { section: currSection, sections, setSection } = useSection();
+  const { setSections } = useSections();
 
   const handleRemoveSection = () => {
-    setSection({
-      section: sections[0] ? sections[0] : null,
-      sections: sections.filter((section) => section.id !== currSection?.id),
-    });
+    setSections((prev) => ({
+      ...prev,
+      selectedSectionId:
+        prev.sections.find((section) => section.id !== prev.selectedSectionId)
+          ?.id || null,
+      sections: prev.sections.filter(
+        (section) => section.id !== prev.selectedSectionId
+      ),
+    }));
   };
 
   return (

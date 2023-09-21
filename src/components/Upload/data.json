@@ -1,0 +1,58 @@
+{
+    "sections": [
+        {
+            "id": "1",
+            "name": "Section1",
+            "isStarted": false,
+            "isStopped": true,
+            "timer": null,
+            "timers": [
+                {
+                    "id": "1",
+                    "name": "Timer1",
+                    "time": {
+                        "minutes": 1,
+                        "seconds": 0
+                    }
+                },
+                {
+                    "id": "2",
+                    "name": "Timer2",
+                    "time": {
+                        "minutes": 2,
+                        "seconds": 0
+                    }
+                }
+            ],
+            "selectedTimerId": "1"
+        },
+        {
+            "id": "2",
+            "name": "Section2",
+            "isStarted": false,
+            "isStopped": true,
+            "timer": null,
+            "timers": [
+                {
+                    "id": "1",
+                    "name": "Timer3",
+                    "time": {
+                        "minutes": 3,
+                        "seconds": 0
+                    }
+                },
+                {
+                    "id": "2",
+                    "name": "Timer4",
+                    "time": {
+                        "minutes": 4,
+                        "seconds": 0
+                    }
+                }
+            ],
+            "selectedTimerId": "1"
+        }
+    ],
+    "section": null,
+    "selectedSectionId": "1"
+}

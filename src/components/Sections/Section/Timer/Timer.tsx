@@ -1,11 +1,11 @@
 import { Countdown } from "./Countdown/Countdown";
 import React, { useEffect, useState } from "react";
 import { getTime } from "@/utils/hooks/useCountdown";
-import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Timer = () => {
-  const { isStarted, timer, isStopped } = useTimer();
-  const [time, setTime] = useState(getTime(timer!.time));
+  const { section } = useSection();
+  const [time, setTime] = useState(getTime(section!.timer!.time));
 
   const handleOnTimeout = () => {
     console.warn("timeout");
@@ -20,8 +20,8 @@ export const Timer = () => {
   };
 
   useEffect(() => {
-    setTime(getTime(timer!.time));
-  }, [isStarted, isStopped, timer]);
+    setTime(getTime(section!.timer!.time));
+  }, [section!.isStarted, section!.isStopped, section!.timer]);
 
   return (
     <Countdown

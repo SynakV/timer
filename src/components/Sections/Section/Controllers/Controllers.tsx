@@ -1,19 +1,33 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 export const Controllers = () => {
-  const { isStarted, setTimer } = useTimer();
+  const { section } = useSection();
+  const { setSections } = useSections();
 
   const handleSwitchIsStarted = () => {
-    setTimer({ isStarted: !isStarted });
+    setSections((prev) => ({
+      ...prev,
+      sections: prev.sections.map((section) => {
+        if (section.id === prev.selectedSectionId) {
+          return {
+            ...section,
+            isStarted: !section.isStarted,
+          };
+        }
+        return section;
+      }),
+    }));
   };
+
   return (
     <Button
-      variant={isStarted ? "destructive" : "success"}
+      variant={section?.isStarted ? "destructive" : "success"}
       onClick={handleSwitchIsStarted}
     >
-      {isStarted ? "Stop" : "Start"}
+      {section?.isStarted ? "Stop" : "Start"}
     </Button>
   );
 };

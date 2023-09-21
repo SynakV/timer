@@ -3,9 +3,9 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import React, { useState } from "react";
-import { SectionType } from "@/utils/contexts/SectionContext/types";
+import { SectionType } from "@/utils/contexts/SectionsContext/types";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 type ValuesType = string;
 
@@ -19,7 +19,7 @@ export const Add = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState(VALUES);
 
-  const { sections, setSection } = useSection();
+  const { setSections } = useSections();
 
   const handleToggleIsOpen = () => {
     setIsOpen((prev) => !prev);
@@ -37,13 +37,23 @@ export const Add = () => {
   const handleAddSection = () => {
     const section = getSection(values);
 
-    setSection({ section: section, sections: [...sections, section] });
+    setSections((prev) => ({
+      ...prev,
+      selectedSectionId: section.id,
+      sections: [...prev.sections, section],
+    }));
+
     handleToggleIsOpen();
   };
 
   const getSection = (values: typeof VALUES): SectionType => ({
     id: Math.random().toString(),
     name: values.name as string,
+    isStarted: false,
+    isStopped: false,
+    timer: null,
+    timers: [],
+    selectedTimerId: null,
   });
 
   return (
