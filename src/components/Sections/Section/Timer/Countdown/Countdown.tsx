@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { Timeline } from "../../Timeline/Timeline";
 import { playAudio } from "@/utils/helpers/audio.helper";
-import { useCountdown } from "@/utils/hooks/useCountdown";
+import { getTime, useCountdown } from "@/utils/hooks/useCountdown";
 import { useTimer } from "@/utils/contexts/TimerContext/TimerContext";
 
 interface Props {
@@ -34,12 +34,32 @@ export const Countdown: FC<Props> = ({
     }
   }, [minutes, seconds]);
 
+  const timeRemainInPercentage = (getTime({ minutes, seconds }) / time) * 100;
+
+  const getTimeColor = () => {
+    if (timeRemainInPercentage > 30) {
+      return "black";
+    }
+
+    if (timeRemainInPercentage > 10) {
+      return "orange";
+    }
+
+    return "red";
+  };
+
   return (
     <>
-      {`${minutes > 9 ? minutes : "0" + minutes}:${
-        seconds > 9 ? seconds : "0" + seconds
-      }`}
-      <Timeline time={time} spent={{ minutes, seconds }} />
+      <span className="transition-all" style={{ color: getTimeColor() }}>
+        {`${minutes > 9 ? minutes : "0" + minutes}:${
+          seconds > 9 ? seconds : "0" + seconds
+        }`}
+      </span>
+      <Timeline
+        isStarted={isStarted}
+        color={getTimeColor()}
+        timeRemainInPercentage={timeRemainInPercentage}
+      />
     </>
   );
 };

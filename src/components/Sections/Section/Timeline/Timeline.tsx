@@ -1,22 +1,24 @@
 import { FC } from "react";
-import { getTime } from "@/utils/hooks/useCountdown";
-import { TimerType } from "@/utils/contexts/TimerContext/types";
 
 interface Props {
-  time: number;
-  spent: TimerType["time"];
+  color: string;
+  isStarted: boolean;
+  timeRemainInPercentage: number;
 }
 
-export const Timeline: FC<Props> = ({ time, spent: { minutes, seconds } }) => {
-  const getTimelinePercentage = () =>
-    (getTime({ minutes, seconds }) / time) * 100;
-
-  return (
-    <div className="fixed w-[99vw] h-2 bottom-[0.5vw] left-[0.5vw]">
-      <div
-        style={{ width: `${getTimelinePercentage()}%` }}
-        className="h-[100%] transition-all bg-primary"
-      />
-    </div>
-  );
-};
+export const Timeline: FC<Props> = ({
+  color,
+  isStarted,
+  timeRemainInPercentage,
+}) => (
+  <div className="fixed w-[99vw] h-2 bottom-[0.5vw] left-[0.5vw]">
+    <div
+      style={{
+        background: color,
+        opacity: isStarted ? 1 : 0,
+        width: `${timeRemainInPercentage}%`,
+      }}
+      className="h-[100%] transition-all rounded-md"
+    />
+  </div>
+);

@@ -11,15 +11,15 @@
 //   const [time, setTime] = useState<number>(DEFAULT_TIME);
 
 //   const handleOnHalfMinute = () => {
-//     console.log("half minute");
+//     console.warn("half minute");
 //   };
 
 //   const handleOnMinute = () => {
-//     console.log("minute");
+//     console.warn("minute");
 //   };
 
 //   const handleOnTimeout = () => {
-//     console.log("time is out");
+//     console.warn("time is out");
 //   };
 
 //   useEffect(() => {
@@ -49,7 +49,7 @@
 //   const [time, setTime] = useState<number>(DEFAULT_TIME);
 
 //   const handleOnTimeout = () => {
-//     console.log("time is out");
+//     console.warn("time is out");
 //   };
 
 //   useEffect(() => {
