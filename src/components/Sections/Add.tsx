@@ -56,8 +56,12 @@ export const Add = () => {
     selectedTimerId: null,
   });
 
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+  };
+
   return (
-    <Popover open={isOpen}>
+    <Popover open={isOpen} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild onClick={handleToggleIsOpen}>
         <Button>
           <Image src="/icons/plus.svg" width={15} height={20} alt="plus" />

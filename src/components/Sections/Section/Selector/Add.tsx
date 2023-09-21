@@ -10,9 +10,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { TimerType } from "@/utils/contexts/SectionsContext/types";
-import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
-import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 type ValuesType = string | number;
 
@@ -76,6 +76,8 @@ export const Add = () => {
         if (section.id === prev.selectedSectionId) {
           return {
             ...section,
+            isStopped: true,
+            isStarted: false,
             timers: section.timers.map((timer) => {
               if (timer.id === section.selectedTimerId) {
                 return {
@@ -98,6 +100,8 @@ export const Add = () => {
         return section;
       }),
     }));
+
+    handleToggleIsOpen();
   };
 
   const getTimer = (values: typeof VALUES): TimerType => ({
@@ -111,8 +115,12 @@ export const Add = () => {
 
   const isAnyTimers = !!section?.timers.length;
 
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+  };
+
   return (
-    <Popover open={isOpen}>
+    <Popover open={isOpen} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild onClick={handleToggleIsOpen}>
         <Button variant="warn">
           <Image
