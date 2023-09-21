@@ -68,8 +68,8 @@ export const Countdown: FC<Props> = ({
         }`}
       </span>
       <Timeline
-        isStarted={isStarted}
         color={getTimeColor()}
+        isStarted={currSection!.isStarted}
         timeRemainInPercentage={timeRemainInPercentage}
       />
     </>
