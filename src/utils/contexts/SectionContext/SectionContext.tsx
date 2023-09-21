@@ -1,4 +1,12 @@
-import { FC, useState, ReactNode, useContext, createContext } from "react";
+import {
+  FC,
+  useState,
+  Dispatch,
+  ReactNode,
+  useContext,
+  createContext,
+  SetStateAction,
+} from "react";
 import { SectionType } from "./types";
 
 interface ISectionValues {
@@ -8,7 +16,7 @@ interface ISectionValues {
 }
 
 interface ISectionContext extends ISectionValues {
-  setSection: (values: Partial<ISectionValues>) => void;
+  setSection: Dispatch<SetStateAction<ISectionValues>>;
 }
 
 const DEFAULT_VALUES: ISectionContext = {
@@ -27,33 +35,23 @@ interface Props {
 export const SectionProvider: FC<Props> = ({ children }) => {
   const [values, setValues] = useState<ISectionValues>(DEFAULT_VALUES);
 
-  const handleSetSection = (values: Partial<ISectionValues>) => {
-    setValues((prev) => ({
-      ...prev,
-      ...values,
-    }));
-  };
+  const sections = values.sections.map((section) => ({
+    ...section,
+    timer:
+      section.timers.find((timer) => timer.id === section.selectedTimerId) ||
+      null,
+  }));
 
-  console.log(values.sections);
+  const section =
+    sections.find((section) => section.id === values.selectedSectionId) || null;
 
   return (
     <SectionContext.Provider
       value={{
-        ...{
-          ...values,
-          section:
-            values.sections.find(
-              (section) => section.id === values.selectedSectionId
-            ) || null,
-          sections: values.sections.map((section) => ({
-            ...section,
-            timer:
-              section.timers.find(
-                (timer) => timer.id === section.selectedTimerId
-              ) || null,
-          })),
-        },
-        setSection: handleSetSection,
+        ...values,
+        section,
+        sections,
+        setSection: setValues,
       }}
     >
       {children}

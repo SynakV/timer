@@ -19,7 +19,7 @@ export const Add = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState(VALUES);
 
-  const { sections, setSection } = useSection();
+  const { setSection } = useSection();
 
   const handleToggleIsOpen = () => {
     setIsOpen((prev) => !prev);
@@ -37,10 +37,11 @@ export const Add = () => {
   const handleAddSection = () => {
     const section = getSection(values);
 
-    setSection({
+    setSection((prev) => ({
+      ...prev,
       selectedSectionId: section.id,
-      sections: [...sections, section],
-    });
+      sections: [...prev.sections, section],
+    }));
 
     handleToggleIsOpen();
   };

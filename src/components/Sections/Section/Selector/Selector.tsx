@@ -11,12 +11,13 @@ import { Remove } from "./Remove";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Selector = () => {
-  const { section: currSection, sections, setSection } = useSection();
+  const { section: currSection, setSection } = useSection();
 
   const handleSelectTimer = (id: string) => {
-    setSection({
-      sections: sections.map((section) => {
-        if (section.id === currSection?.id) {
+    setSection((prev) => ({
+      ...prev,
+      sections: prev.sections.map((section) => {
+        if (section.id === prev.selectedSectionId) {
           return {
             ...section,
             isStopped: true,
@@ -27,7 +28,7 @@ export const Selector = () => {
 
         return section;
       }),
-    });
+    }));
   };
 
   return (

@@ -4,27 +4,28 @@ import { Button } from "@/components/ui/button";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Remove = () => {
-  const { section: currSection, sections, setSection } = useSection();
+  const { setSection } = useSection();
 
   const handleRemoveTimer = () => {
-    setSection({
-      sections: sections.map((section) => {
-        if (section.id === currSection?.id) {
+    setSection((prev) => ({
+      ...prev,
+      sections: prev.sections.map((section) => {
+        if (section.id === prev.selectedSectionId) {
           return {
             ...section,
             selectedTimerId:
-              section.timers[0].id && section.timers.length > 1
-                ? section.timers[0].id
-                : null,
+              section.timers.find(
+                (timer) => timer.id !== section.selectedTimerId
+              )?.id || null,
             timers: section.timers.filter(
-              (timer) => timer.id !== section.timer!.id
+              (timer) => timer.id !== section.selectedTimerId
             ),
           };
         }
 
         return section;
       }),
-    });
+    }));
   };
 
   return (

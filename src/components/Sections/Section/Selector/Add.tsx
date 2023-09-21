@@ -29,7 +29,7 @@ export const Add = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState(VALUES);
 
-  const { section: currSection, sections, setSection } = useSection();
+  const { section, setSection } = useSection();
 
   const handleToggleIsOpen = () => {
     setIsOpen((prev) => !prev);
@@ -47,9 +47,10 @@ export const Add = () => {
   const handleAddTimer = () => {
     const timer = getTimer(values);
 
-    setSection({
-      sections: sections.map((section) => {
-        if (section.id === currSection?.id) {
+    setSection((prev) => ({
+      ...prev,
+      sections: prev.sections.map((section) => {
+        if (section.id === prev.selectedSectionId) {
           return {
             ...section,
             isStopped: true,
@@ -61,33 +62,29 @@ export const Add = () => {
 
         return section;
       }),
-    });
+    }));
 
     handleToggleIsOpen();
   };
 
   const handleEditTimer = (type: keyof TimerType) => {
-    const timerValues = {
-      ...(type === "name"
-        ? { name: values.name as string }
-        : {
-            time: {
-              minutes: values.minutes as number,
-              seconds: values.seconds as number,
-            },
-          }),
-    };
-
-    setSection({
-      sections: sections.map((section) => {
-        if (section.id === currSection?.id) {
+    setSection((prev) => ({
+      ...prev,
+      sections: prev.sections.map((section) => {
+        if (section.id === prev.selectedSectionId) {
           return {
             ...section,
             timers: section.timers.map((timer) => {
-              if (timer.id === section.timer?.id) {
+              if (timer.id === section.selectedTimerId) {
                 return {
                   ...timer,
-                  ...timerValues,
+                  ...(type === "name" && { name: values.name as string }),
+                  ...(type === "time" && {
+                    time: {
+                      minutes: values.minutes as number,
+                      seconds: values.seconds as number,
+                    },
+                  }),
                 };
               }
 
@@ -98,24 +95,7 @@ export const Add = () => {
 
         return section;
       }),
-    });
-
-    // setTimer({
-    //   timer: {
-    //     ...currTimer!,
-    //     ...timerValues,
-    //   },
-    //   timers: timers.map((timer) => {
-    //     if (timer.id === currTimer?.id) {
-    //       return {
-    //         ...timer,
-    //         ...timerValues,
-    //       };
-    //     }
-
-    //     return timer;
-    //   }),
-    // });
+    }));
   };
 
   const getTimer = (values: typeof VALUES): TimerType => ({
@@ -127,9 +107,7 @@ export const Add = () => {
     },
   });
 
-  // const currTimer =
-
-  const isAnyTimers = !!currSection?.timers.length;
+  const isAnyTimers = !!section?.timers.length;
 
   return (
     <Popover open={isOpen}>
@@ -159,7 +137,7 @@ export const Add = () => {
                     id="name"
                     type="text"
                     className="h-10"
-                    defaultValue={currSection?.timer?.name || values.name}
+                    defaultValue={section?.timer?.name || values.name}
                     onChange={(e) =>
                       handleChangeValues({ name: e.target.value })
                     }
@@ -177,7 +155,7 @@ export const Add = () => {
                       type="number"
                       className="col-span-5 h-10"
                       defaultValue={
-                        currSection?.timer?.time.minutes || values.minutes
+                        section?.timer?.time.minutes || values.minutes
                       }
                       onChange={(e) =>
                         handleChangeValues({ minutes: +e.target.value })
@@ -191,7 +169,7 @@ export const Add = () => {
                       type="number"
                       className="col-span-5 h-10"
                       defaultValue={
-                        currSection?.timer?.time.seconds || values.seconds
+                        section?.timer?.time.seconds || values.seconds
                       }
                       onChange={(e) =>
                         handleChangeValues({ seconds: +e.target.value })

@@ -17,15 +17,17 @@ export const Countdown: FC<Props> = ({
   onMinute,
   onHalfMinute,
 }) => {
-  const { section: currSection, sections, setSection } = useSection();
-  const { minutes, seconds } = useCountdown(time, currSection!.isStarted);
+  const { section, setSection } = useSection();
+  const { minutes, seconds } = useCountdown(time, section!.isStarted);
 
   useEffect(() => {
     if (minutes <= 0 && seconds <= 0) {
       playAudio("timeout");
-      setSection({
-        sections: sections.map((section) => {
-          if (section.id === currSection?.id) {
+
+      setSection((prev) => ({
+        ...prev,
+        sections: prev.sections.map((section) => {
+          if (section.id === prev.selectedSectionId) {
             return {
               ...section,
               isStopped: true,
@@ -35,7 +37,8 @@ export const Countdown: FC<Props> = ({
 
           return section;
         }),
-      });
+      }));
+
       return onTimeout();
     }
     if (minutes > 0 && seconds === 0) {
@@ -69,7 +72,7 @@ export const Countdown: FC<Props> = ({
       </span>
       <Timeline
         color={getTimeColor()}
-        isStarted={currSection!.isStarted}
+        isStarted={section!.isStarted}
         timeRemainInPercentage={timeRemainInPercentage}
       />
     </>

@@ -7,18 +7,16 @@ import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 export const Section = () => {
   const { section } = useSection();
 
-  // console.log(section);
-
   return (
     <>
       <div className="flex flex-col gap-5 items-center">
         <Selector />
-        {section?.timer && <Controllers />}
+        {section?.selectedTimerId && <Controllers />}
       </div>
       <div
         className={`w-[100vw] text-center font-mono text-[33vw] leading-[140%]`}
       >
-        {section?.timer ? (
+        {section?.selectedTimerId ? (
           <Timer />
         ) : (
           <div className="text-[13vw]">Create timer</div>

@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Controllers = () => {
-  const { section: currSection, sections, setSection } = useSection();
+  const { section: currSection, setSection } = useSection();
 
   const handleSwitchIsStarted = () => {
-    setSection({
-      sections: sections.map((section) => {
-        if (section.id === currSection?.id) {
+    setSection((prev) => ({
+      ...prev,
+      sections: prev.sections.map((section) => {
+        if (section.id === prev.selectedSectionId) {
           return {
             ...section,
             isStarted: !section.isStarted,
@@ -16,7 +17,7 @@ export const Controllers = () => {
         }
         return section;
       }),
-    });
+    }));
   };
 
   return (
