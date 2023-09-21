@@ -9,9 +9,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { TimerType } from "@/utils/contexts/SectionContext/types";
-import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { TimerType } from "@/utils/contexts/SectionsContext/types";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 type ValuesType = string | number;
 
@@ -29,7 +30,8 @@ export const Add = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState(VALUES);
 
-  const { section, setSection } = useSection();
+  const { section } = useSection();
+  const { setSections } = useSections();
 
   const handleToggleIsOpen = () => {
     setIsOpen((prev) => !prev);
@@ -47,7 +49,7 @@ export const Add = () => {
   const handleAddTimer = () => {
     const timer = getTimer(values);
 
-    setSection((prev) => ({
+    setSections((prev) => ({
       ...prev,
       sections: prev.sections.map((section) => {
         if (section.id === prev.selectedSectionId) {
@@ -68,7 +70,7 @@ export const Add = () => {
   };
 
   const handleEditTimer = (type: keyof TimerType) => {
-    setSection((prev) => ({
+    setSections((prev) => ({
       ...prev,
       sections: prev.sections.map((section) => {
         if (section.id === prev.selectedSectionId) {

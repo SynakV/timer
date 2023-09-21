@@ -1,12 +1,14 @@
 import React from "react";
 import { Add } from "./Add";
 import { Remove } from "./Remove";
+import { Upload } from "../Upload/Upload";
 import { Section } from "./Section/Section";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
-import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
+import { SectionProvider } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Sections = () => {
-  const { selectedSectionId, sections, setSection } = useSection();
+  const { selectedSectionId, sections, setSections } = useSections();
 
   return (
     <div className="flex flex-col items-center w-[100vw] h-[100vh] overflow-hidden">
@@ -19,7 +21,7 @@ export const Sections = () => {
                   key={section.id}
                   value={section.id}
                   onClick={() =>
-                    setSection((prev) => ({
+                    setSections((prev) => ({
                       ...prev,
                       selectedSectionId: section.id,
                     }))
@@ -41,9 +43,12 @@ export const Sections = () => {
             display: section.id === selectedSectionId ? "block" : "none",
           }}
         >
-          <Section />
+          <SectionProvider section={section}>
+            <Section />
+          </SectionProvider>
         </div>
       ))}
+      <Upload />
     </div>
   );
 };

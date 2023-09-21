@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 export const Remove = () => {
-  const { setSection } = useSection();
+  const { setSections } = useSections();
 
   const handleRemoveTimer = () => {
-    setSection((prev) => ({
+    setSections((prev) => ({
       ...prev,
       sections: prev.sections.map((section) => {
         if (section.id === prev.selectedSectionId) {

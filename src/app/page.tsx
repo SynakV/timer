@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { SectionProvider } from "@/utils/contexts/SectionContext/SectionContext";
+import { SectionsProvider } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 const Sections = dynamic(
   () =>
@@ -11,8 +11,8 @@ const Sections = dynamic(
 
 export default function Home() {
   return (
-    <SectionProvider>
+    <SectionsProvider>
       <Sections />
-    </SectionProvider>
+    </SectionsProvider>
   );
 }

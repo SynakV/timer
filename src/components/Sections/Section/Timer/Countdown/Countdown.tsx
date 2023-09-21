@@ -3,6 +3,7 @@ import { Timeline } from "../../Timeline/Timeline";
 import { playAudio } from "@/utils/helpers/audio.helper";
 import { getTime, useCountdown } from "@/utils/hooks/useCountdown";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 interface Props {
   time: number;
@@ -17,14 +18,15 @@ export const Countdown: FC<Props> = ({
   onMinute,
   onHalfMinute,
 }) => {
-  const { section, setSection } = useSection();
+  const { section } = useSection();
+  const { setSections } = useSections();
   const { minutes, seconds } = useCountdown(time, section!.isStarted);
 
   useEffect(() => {
     if (minutes <= 0 && seconds <= 0) {
       playAudio("timeout");
 
-      setSection((prev) => ({
+      setSections((prev) => ({
         ...prev,
         sections: prev.sections.map((section) => {
           if (section.id === prev.selectedSectionId) {
