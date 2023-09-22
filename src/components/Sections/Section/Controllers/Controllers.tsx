@@ -19,6 +19,7 @@ export const Controllers = () => {
         }
         return section;
       }),
+      isDrawerOpen: section?.isStarted || false,
     }));
   };
 

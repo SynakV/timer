@@ -14,7 +14,10 @@ export const Upload = () => {
   };
 
   return (
-    <Button onClick={handleUploadData} className="absolute top-2 right-2">
+    <Button
+      onClick={handleUploadData}
+      className="width-[100%] absolute bottom-5 right-5"
+    >
       Upload
     </Button>
   );

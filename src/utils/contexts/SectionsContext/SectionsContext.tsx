@@ -6,11 +6,11 @@ import {
   useContext,
   createContext,
   SetStateAction,
-  useEffect,
 } from "react";
 import { SectionType } from "./types";
 
 interface ISectionsValues {
+  isDrawerOpen: boolean;
   sections: SectionType[];
   section: SectionType | null;
   selectedSectionId: string | null;
@@ -21,6 +21,7 @@ interface ISectionsContext extends ISectionsValues {
 }
 
 const DEFAULT_VALUES: ISectionsContext = {
+  isDrawerOpen: false,
   sections: [],
   section: null,
   setSections: () => {},
