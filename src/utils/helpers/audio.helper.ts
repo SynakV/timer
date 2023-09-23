@@ -1,6 +1,8 @@
+import { DEFAULT_VOLUME, LOCAL_STORAGE_VOLUME } from "../constants/constants";
+
 type PlayAudioOptions = {
-  isMuted?: boolean;
   isLoop?: boolean;
+  isMuted?: boolean;
 };
 
 export const playAudio = (
@@ -9,7 +11,9 @@ export const playAudio = (
 ) => {
   const audio = new Audio(`/audio/${name}.mp3`);
 
-  audio.volume = isMuted ? 0 : 0.1;
+  audio.volume = isMuted
+    ? 0
+    : +(localStorage.getItem(LOCAL_STORAGE_VOLUME) || DEFAULT_VOLUME);
 
   audio.loop = !!isLoop;
 

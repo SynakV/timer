@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 export const Upload = () => {
@@ -16,7 +16,7 @@ export const Upload = () => {
   return (
     <Button
       onClick={handleUploadData}
-      className="width-[100%] absolute bottom-5 right-5"
+      className="width-[100%] absolute bottom-12 right-5"
     >
       Upload
     </Button>

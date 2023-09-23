@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-lpignore>
-      <body suppressHydrationWarning={true} className={inter.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning className={inter.className}>
         <ThemeProvider
           enableSystem
           attribute="class"

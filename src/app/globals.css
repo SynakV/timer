@@ -76,4 +76,7 @@
     color: var(--foreground);
     background-color: var(--background);
   }
+  .volume {
+    width: calc(100% - 2.5rem)!important;
+  }
 }
