@@ -27,7 +27,7 @@ export const Drawer: FC<Props> = ({ children }) => {
         } `}
       />
       <div
-        className={`absolute h-[100%] shadow-2xl transition-all p-5 z-50 bg-[--background] ${
+        className={`absolute h-[100%] transition-all p-5 z-50 bg-[--background] ${
           isDrawerOpen
             ? "lg:w-[500px] md:w-[400px] sm:w-[350px] max-sm:w-[100%] right-0"
             : "lg:right-[-500px] md:right-[-400px] sm:right-[-350px] max-sm:right-[-100%]"

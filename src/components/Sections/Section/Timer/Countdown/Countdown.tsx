@@ -55,7 +55,7 @@ export const Countdown: FC<Props> = ({
 
   const getTimeColor = () => {
     if (timeRemainInPercentage > 30) {
-      return "var(--foreground)";
+      return "hsl(var(--foreground))";
     }
 
     if (timeRemainInPercentage > 10) {
@@ -67,10 +67,7 @@ export const Countdown: FC<Props> = ({
 
   return (
     <>
-      <span
-        className="transition-all bg-[--background] text-[--foreground]"
-        style={{ color: getTimeColor() }}
-      >
+      <span style={{ color: getTimeColor() }} className="transition-all">
         {`${minutes > 9 ? minutes : "0" + minutes}:${
           seconds > 9 ? seconds : "0" + seconds
         }`}
