@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import PlusSvg from "@/Icons/PlusSvg";
 import React, { useState } from "react";
 import { SectionType } from "@/utils/contexts/SectionsContext/types";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -64,7 +64,7 @@ export const Add = () => {
     <Popover open={isOpen} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild onClick={handleToggleIsOpen}>
         <Button>
-          <Image src="/icons/plus.svg" width={15} height={20} alt="plus" />
+          <PlusSvg />
         </Button>
       </PopoverTrigger>
       <PopoverContent>

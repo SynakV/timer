@@ -20,7 +20,7 @@ export const Section = () => {
           style={{
             display: section?.id === selectedSectionId ? "block" : "none",
           }}
-          className={`w-[100vw] text-center font-mono text-[33vw]`}
+          className={`w-[100vw] text-center font-mono text-[33vw] bg-[--background]`}
         >
           {section?.selectedTimerId && <Timer />}
         </div>,

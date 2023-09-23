@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -9,6 +8,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import PencilSvg from "@/Icons/PencilSvg";
+import SettingsSvg from "@/Icons/SettingsSvg";
 import { TimerType } from "@/utils/contexts/SectionsContext/types";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
@@ -123,12 +124,7 @@ export const Add = () => {
     <Popover open={isOpen} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild onClick={handleToggleIsOpen}>
         <Button variant="warn">
-          <Image
-            width={15}
-            height={20}
-            alt="settings"
-            src="/icons/settings.svg"
-          />
+          <SettingsSvg />
         </Button>
       </PopoverTrigger>
       <PopoverContent>
@@ -198,16 +194,10 @@ export const Add = () => {
                         className="col-span-3"
                         onClick={() => handleEditTimer("name")}
                       >
-                        <Image
-                          width={15}
-                          height={15}
-                          alt="pencil"
-                          className="h-10"
-                          src="/icons/pencil.svg"
-                        />
+                        <PencilSvg />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="right">
+                    <TooltipContent side="top">
                       <p>Edit name</p>
                     </TooltipContent>
                   </Tooltip>
@@ -219,16 +209,10 @@ export const Add = () => {
                         className="col-span-3"
                         onClick={() => handleEditTimer("time")}
                       >
-                        <Image
-                          width={15}
-                          height={15}
-                          alt="pencil"
-                          className="h-10"
-                          src="/icons/pencil.svg"
-                        />
+                        <PencilSvg />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="right">
+                    <TooltipContent side="top">
                       <p>Edit time</p>
                     </TooltipContent>
                   </Tooltip>

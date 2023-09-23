@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import MinusSvg from "@/Icons/MinusSvg";
 import { Button } from "@/components/ui/button";
 import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
@@ -30,7 +30,7 @@ export const Remove = () => {
 
   return (
     <Button onClick={handleRemoveTimer}>
-      <Image src="/icons/minus.svg" width={15} height={20} alt="minus" />
+      <MinusSvg />
     </Button>
   );
 };
