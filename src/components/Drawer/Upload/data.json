@@ -13,6 +13,10 @@
                     "time": {
                         "minutes": 1,
                         "seconds": 0
+                    },
+                    "breakpoints": {
+                        "step": 15,
+                        "points": []
                     }
                 },
                 {
@@ -21,6 +25,10 @@
                     "time": {
                         "minutes": 2,
                         "seconds": 0
+                    },
+                    "breakpoints": {
+                        "step": 15,
+                        "points": []
                     }
                 }
             ],
@@ -39,6 +47,10 @@
                     "time": {
                         "minutes": 3,
                         "seconds": 0
+                    },
+                    "breakpoints": {
+                        "step": 15,
+                        "points": []
                     }
                 },
                 {
@@ -47,6 +59,10 @@
                     "time": {
                         "minutes": 4,
                         "seconds": 0
+                    },
+                    "breakpoints": {
+                        "step": 15,
+                        "points": []
                     }
                 }
             ],
