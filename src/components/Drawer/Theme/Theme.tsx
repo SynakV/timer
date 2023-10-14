@@ -1,6 +1,5 @@
-import React from "react";
-import { Button } from "../../ui/button";
 import { useTheme } from "next-themes";
+import { Button } from "../../ui/button";
 
 export const Theme = () => {
   const { theme, setTheme } = useTheme();
