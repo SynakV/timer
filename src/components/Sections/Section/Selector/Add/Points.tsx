@@ -9,6 +9,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
+  getHours,
   getMinutes,
   getSeconds,
   getDisplayTime,
@@ -38,6 +39,7 @@ export const Points: FC<Props> = ({ points, checked, onCheckChange }) => (
             <Checkbox value={point} checked={checked.includes(point)} />
             <Label htmlFor="terms" className="font-mono">
               {getDisplayTime({
+                hours: getHours(point),
                 minutes: getMinutes(point),
                 seconds: getSeconds(point),
               })}

@@ -11,12 +11,8 @@ export const Timer = () => {
     console.warn("timeout");
   };
 
-  const handleOnMinute = () => {
-    console.warn("minute");
-  };
-
-  const handleOnHalfMinute = () => {
-    console.warn("half minute");
+  const handleOnBreakpoint = (breakpoint: number) => {
+    console.warn("breakpoint", breakpoint);
   };
 
   useEffect(() => {
@@ -27,8 +23,7 @@ export const Timer = () => {
     <Countdown
       time={time}
       onTimeout={handleOnTimeout}
-      onMinute={handleOnMinute}
-      onHalfMinute={handleOnHalfMinute}
+      onBreakpoint={handleOnBreakpoint}
     />
   );
 };

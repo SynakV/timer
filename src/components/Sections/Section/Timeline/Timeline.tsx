@@ -2,15 +2,15 @@ import { FC } from "react";
 
 interface Props {
   color: string;
-  points: number[];
   isStarted: boolean;
+  breakpoints: number[];
   timeRemainInPercentage: number;
 }
 
 export const Timeline: FC<Props> = ({
   color,
-  points,
   isStarted,
+  breakpoints,
   timeRemainInPercentage,
 }) => (
   <div className="fixed w-[99vw] h-2 bottom-[0.5vw] left-[0.5vw]">
@@ -22,11 +22,11 @@ export const Timeline: FC<Props> = ({
       }}
       className="h-[100%] transition-all rounded-md"
     />
-    {points.map((point) => (
+    {breakpoints.map((breakpoint) => (
       <div
-        key={point}
-        className="absolute top-0 w-1 h-[100%] bg-white"
-        style={{ left: `${point}%` }}
+        key={breakpoint}
+        style={{ left: `${breakpoint}%` }}
+        className="absolute w-1 top-0 h-[100%] bg-white"
       />
     ))}
   </div>
