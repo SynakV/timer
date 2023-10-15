@@ -6,7 +6,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import React from "react";
-import { Add } from "./Add";
+import { Add } from "./Add/Add";
 import { Remove } from "./Remove";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";

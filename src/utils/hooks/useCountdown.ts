@@ -33,8 +33,8 @@ const getReturnValues = (countDown: number) => {
   // const hours = Math.floor(
   //   (countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
   // );
-  const minutes = Math.floor(countDown / 60);
-  const seconds = Math.floor(countDown % 60);
+  const minutes = getMinutes(countDown);
+  const seconds = getSeconds(countDown);
 
   return {
     // days,
@@ -43,6 +43,14 @@ const getReturnValues = (countDown: number) => {
     seconds,
   };
 };
+
+export const getMinutes = (time: number) => Math.floor(time / 60);
+export const getSeconds = (time: number) => Math.floor(time % 60);
+
+export const getDisplayTime = (time: { minutes: number; seconds: number }) =>
+  `${time.minutes > 9 ? time.minutes : "0" + time.minutes}:${
+    time.seconds > 9 ? time.seconds : "0" + time.seconds
+  }`;
 
 export const getTime = (time: { minutes: number; seconds: number }) =>
   time.minutes * 60 + time.seconds;

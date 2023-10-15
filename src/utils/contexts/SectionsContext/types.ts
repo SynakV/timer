@@ -15,4 +15,8 @@ export type TimerType = {
     seconds: number;
   };
   name: string;
+  breakpoints: {
+    step: number;
+    points: number[];
+  };
 };
