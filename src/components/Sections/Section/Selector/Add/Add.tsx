@@ -17,17 +17,26 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "../../../../ui/popover";
-import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 import { Points } from "./Points";
+import { getTime } from "@/utils/hooks/useCountdown";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 type ValuesType = string | number | number[];
 
-const VALUES = {
+const DEFAULT_VALUES = {
   name: "Timer",
   minutes: 2,
   seconds: 0,
   step: 15,
   points: [],
+};
+
+const VALUES = {
+  name: DEFAULT_VALUES.name,
+  minutes: DEFAULT_VALUES.minutes,
+  seconds: DEFAULT_VALUES.seconds,
+  step: DEFAULT_VALUES.step,
+  points: DEFAULT_VALUES.points,
 } as {
   name?: ValuesType;
   minutes?: ValuesType;
@@ -80,6 +89,11 @@ export const Add = () => {
   };
 
   const handleEditTimer = (type: keyof TimerType) => {
+    const breakpoints = {
+      step: values.step as number,
+      points: values.points as number[],
+    };
+
     setSections((prev) => ({
       ...prev,
       sections: prev.sections.map((section) => {
@@ -98,6 +112,10 @@ export const Add = () => {
                       minutes: values.minutes as number,
                       seconds: values.seconds as number,
                     },
+                    breakpoints,
+                  }),
+                  ...(type === "breakpoints" && {
+                    breakpoints,
                   }),
                 };
               }
@@ -126,6 +144,33 @@ export const Add = () => {
       points: values.points as number[],
     },
   });
+
+  const getBreakpointAfterCheck = (point: number) => {
+    const points = values.points as number[];
+
+    return points.includes(point)
+      ? points.filter((number) => number !== point)
+      : [...points, point];
+  };
+
+  const getGeneratedPoints = () => {
+    const seconds = getTime({
+      minutes: values.minutes as number,
+      seconds: values.seconds as number,
+    });
+
+    const points = [];
+
+    const step = values.step as number;
+
+    const loopStep = step && step >= 0 ? step : 1;
+
+    for (let i = loopStep; i < seconds; i += loopStep) {
+      points.push(i);
+    }
+
+    return points;
+  };
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -180,7 +225,11 @@ export const Add = () => {
                           values.minutes) as number
                       }
                       onChange={(e) =>
-                        handleChangeValues({ minutes: +e.target.value })
+                        handleChangeValues({
+                          minutes: +e.target.value,
+                          step: DEFAULT_VALUES.step,
+                          points: DEFAULT_VALUES.points,
+                        })
                       }
                     />
                     <span className="text-center col-span-1">:</span>
@@ -195,7 +244,11 @@ export const Add = () => {
                           values.seconds) as number
                       }
                       onChange={(e) =>
-                        handleChangeValues({ seconds: +e.target.value })
+                        handleChangeValues({
+                          seconds: +e.target.value,
+                          step: DEFAULT_VALUES.step,
+                          points: DEFAULT_VALUES.points,
+                        })
                       }
                     />
                   </div>
@@ -240,7 +293,7 @@ export const Add = () => {
 
           <hr />
 
-          {/* <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-5 gap-2">
             <div
               className="grid items-center gap-4"
               style={{ gridColumn: `span ${isAnyTimers ? 4 : 5}` }}
@@ -251,7 +304,12 @@ export const Add = () => {
                 </Label>
                 <div className="grid col-span-5">
                   <Input
+                    min={5}
                     step={5}
+                    max={getTime({
+                      minutes: values.minutes as number,
+                      seconds: values.seconds as number,
+                    })}
                     id="step"
                     type="number"
                     className="h-10"
@@ -260,7 +318,10 @@ export const Add = () => {
                         values.step) as number
                     }
                     onChange={(e) =>
-                      handleChangeValues({ name: e.target.value })
+                      handleChangeValues({
+                        step: +e.target.value,
+                        points: DEFAULT_VALUES.points,
+                      })
                     }
                   />
                 </div>
@@ -271,9 +332,13 @@ export const Add = () => {
                 </Label>
                 <div className="grid col-span-5">
                   <Points
-                    checked={[1, 3]}
-                    points={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                    onCheckChange={(check) => console.log(check)}
+                    checked={values.points as number[]}
+                    points={getGeneratedPoints()}
+                    onCheckChange={(point) =>
+                      handleChangeValues({
+                        points: getBreakpointAfterCheck(point),
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -314,7 +379,7 @@ export const Add = () => {
             )}
           </div>
 
-          <hr /> */}
+          <hr />
 
           <Button onClick={handleAddTimer}>Add timer</Button>
         </div>

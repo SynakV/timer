@@ -2,12 +2,14 @@ import { FC } from "react";
 
 interface Props {
   color: string;
+  points: number[];
   isStarted: boolean;
   timeRemainInPercentage: number;
 }
 
 export const Timeline: FC<Props> = ({
   color,
+  points,
   isStarted,
   timeRemainInPercentage,
 }) => (
@@ -20,5 +22,12 @@ export const Timeline: FC<Props> = ({
       }}
       className="h-[100%] transition-all rounded-md"
     />
+    {points.map((point) => (
+      <div
+        key={point}
+        className="absolute top-0 w-1 h-[100%] bg-white"
+        style={{ left: `${point}%` }}
+      />
+    ))}
   </div>
 );

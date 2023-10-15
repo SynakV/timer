@@ -1,7 +1,11 @@
 import { FC, useEffect } from "react";
 import { Timeline } from "../../Timeline/Timeline";
 import { playAudio } from "@/utils/helpers/audio.helper";
-import { getTime, useCountdown } from "@/utils/hooks/useCountdown";
+import {
+  getDisplayTime,
+  getTime,
+  useCountdown,
+} from "@/utils/hooks/useCountdown";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
@@ -65,15 +69,18 @@ export const Countdown: FC<Props> = ({
     return "red";
   };
 
+  const timelinePoints =
+    section?.timer?.breakpoints.points.map((point) => (point / time) * 100) ||
+    [];
+
   return (
     <>
       <span style={{ color: getTimeColor() }} className="transition-all">
-        {`${minutes > 9 ? minutes : "0" + minutes}:${
-          seconds > 9 ? seconds : "0" + seconds
-        }`}
+        {getDisplayTime({ minutes, seconds })}
       </span>
       <Timeline
         color={getTimeColor()}
+        points={timelinePoints}
         isStarted={section!.isStarted}
         timeRemainInPercentage={timeRemainInPercentage}
       />
