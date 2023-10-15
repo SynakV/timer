@@ -1,27 +1,29 @@
+import { useWorker } from "./useWorker";
 import { useEffect, useState } from "react";
 
 export const useCountdown = (time: number, isStarted: boolean) => {
   const [countDown, setCountDown] = useState(time);
+
+  const worker = useWorker();
 
   useEffect(() => {
     setCountDown(time);
   }, [isStarted, time]);
 
   useEffect(() => {
-    let interval: NodeJS.Timer | null = null;
-
     if (isStarted) {
-      interval = setInterval(() => {
+      worker?.postMessage(true);
+      worker!.onmessage = () => {
         setCountDown((prev) => prev - 1);
-      }, 1000);
+      };
+    } else {
+      worker?.postMessage(false);
     }
 
     return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
+      worker?.postMessage(null);
     };
-  }, [isStarted]);
+  }, [isStarted, worker]);
 
   return getReturnValues(countDown);
 };
