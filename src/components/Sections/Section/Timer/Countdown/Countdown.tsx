@@ -3,6 +3,9 @@ import { Timeline } from "../../Timeline/Timeline";
 import { playAudio } from "@/utils/helpers/audio.helper";
 import {
   getTime,
+  getHours,
+  getMinutes,
+  getSeconds,
   useCountdown,
   getDisplayTime,
 } from "@/utils/hooks/useCountdown";
@@ -71,18 +74,28 @@ export const Countdown: FC<Props> = ({ time, onTimeout, onBreakpoint }) => {
   const timelinePoints =
     breakpoints?.map((point) => (point / time) * 100) || [];
 
+  const timeSpent = time - currentTime;
+
   return (
     <>
       <div className="relative flex flex-col" style={{ color: textColor }}>
         <span className="transition-all">
-          {getDisplayTime({ minutes, seconds })}
+          {section?.isRemainedTime
+            ? getDisplayTime({ minutes, seconds })
+            : getDisplayTime({
+                minutes: getMinutes(timeSpent),
+                seconds: getSeconds(timeSpent),
+              })}
         </span>
-        <span className="text-[3vw] translate-y-[-100%]">{hours}h</span>
+        <span className="text-[3vw] translate-y-[-100%]">
+          {section?.isRemainedTime ? hours : getHours(timeSpent)}h
+        </span>
       </div>
       <Timeline
         color={textColor}
         breakpoints={timelinePoints}
         isStarted={section!.isStarted}
+        isDescending={!!section?.isRemainedTime}
         timeRemainInPercentage={timeRemainInPercentage}
       />
     </>

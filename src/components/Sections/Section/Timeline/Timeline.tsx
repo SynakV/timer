@@ -4,6 +4,7 @@ interface Props {
   color: string;
   isStarted: boolean;
   breakpoints: number[];
+  isDescending: boolean;
   timeRemainInPercentage: number;
 }
 
@@ -11,6 +12,7 @@ export const Timeline: FC<Props> = ({
   color,
   isStarted,
   breakpoints,
+  isDescending,
   timeRemainInPercentage,
 }) => (
   <div className="fixed w-[99vw] h-2 bottom-[0.5vw] left-[0.5vw]">
@@ -18,7 +20,9 @@ export const Timeline: FC<Props> = ({
       style={{
         background: color,
         opacity: isStarted ? 1 : 0,
-        width: `${timeRemainInPercentage}%`,
+        width: `${
+          isDescending ? timeRemainInPercentage : 100 - timeRemainInPercentage
+        }%`,
       }}
       className="h-[100%] transition-all rounded-md"
     />

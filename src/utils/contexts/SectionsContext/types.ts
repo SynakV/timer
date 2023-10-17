@@ -4,6 +4,7 @@ export type SectionType = {
   isStarted: boolean;
   isStopped: boolean;
   timers: TimerType[];
+  isRemainedTime: boolean;
   timer: TimerType | null;
   selectedTimerId: string | null;
 };

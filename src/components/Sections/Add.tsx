@@ -53,6 +53,7 @@ export const Add = () => {
     isStopped: false,
     timer: null,
     timers: [],
+    isRemainedTime: true,
     selectedTimerId: null,
   });
 

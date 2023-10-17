@@ -6,6 +6,7 @@
             "isStarted": false,
             "isStopped": true,
             "timer": null,
+            "isRemainedTime": true,
             "timers": [
                 {
                     "id": "1",
@@ -40,6 +41,7 @@
             "isStarted": false,
             "isStopped": true,
             "timer": null,
+            "isRemainedTime": true,
             "timers": [
                 {
                     "id": "1",

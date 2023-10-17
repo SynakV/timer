@@ -1,7 +1,6 @@
-import { Theme } from "./Theme/Theme";
-import { Upload } from "./Upload/Upload";
 import { Volume } from "./Volume/Volume";
 import React, { FC, ReactNode } from "react";
+import { Dropdown } from "./Dropdown/Dropdown";
 import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 interface Props {
@@ -38,8 +37,7 @@ export const Drawer: FC<Props> = ({ children }) => {
           onClick={handleToggleDrawer}
           className="absolute w-[100%] h-[100%] z-0 top-0 left-0"
         />
-        <Theme />
-        <Upload />
+        <Dropdown />
         <Volume />
       </div>
     </div>
