@@ -25,8 +25,9 @@ export const Controllers = () => {
 
   return (
     <Button
-      variant={section?.isStarted ? "destructive" : "success"}
+      className="w-full"
       onClick={handleSwitchIsStarted}
+      variant={section?.isStarted ? "destructive" : "success"}
     >
       {section?.isStarted ? "Stop" : "Start"}
     </Button>
