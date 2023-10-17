@@ -66,19 +66,21 @@ export const Countdown: FC<Props> = ({ time, onTimeout, onBreakpoint }) => {
     return "red";
   };
 
+  const textColor = getTimeColor();
+
   const timelinePoints =
     breakpoints?.map((point) => (point / time) * 100) || [];
 
   return (
     <>
-      <div className="relative flex flex-col" style={{ color: getTimeColor() }}>
+      <div className="relative flex flex-col" style={{ color: textColor }}>
         <span className="transition-all">
           {getDisplayTime({ minutes, seconds })}
         </span>
         <span className="text-[3vw] translate-y-[-100%]">{hours}h</span>
       </div>
       <Timeline
-        color={getTimeColor()}
+        color={textColor}
         breakpoints={timelinePoints}
         isStarted={section!.isStarted}
         timeRemainInPercentage={timeRemainInPercentage}
