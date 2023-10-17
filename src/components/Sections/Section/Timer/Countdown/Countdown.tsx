@@ -76,19 +76,23 @@ export const Countdown: FC<Props> = ({ time, onTimeout, onBreakpoint }) => {
 
   const timeSpent = time - currentTime;
 
+  const minutesAndSecondsToDisplay = getDisplayTime({
+    minutes: section?.isRemainedTime ? minutes : getMinutes(timeSpent),
+    seconds: section?.isRemainedTime ? seconds : getSeconds(timeSpent),
+  });
+
+  const hoursToDisplay = section?.isRemainedTime ? hours : getHours(timeSpent);
+
   return (
     <>
       <div className="relative flex flex-col" style={{ color: textColor }}>
-        <span className="transition-all">
-          {section?.isRemainedTime
-            ? getDisplayTime({ minutes, seconds })
-            : getDisplayTime({
-                minutes: getMinutes(timeSpent),
-                seconds: getSeconds(timeSpent),
-              })}
-        </span>
-        <span className="text-[3vw] translate-y-[-100%]">
-          {section?.isRemainedTime ? hours : getHours(timeSpent)}h
+        <span className="transition-all">{minutesAndSecondsToDisplay}</span>
+        <span
+          className={`text-[3vw] translate-y-[-100%] transition-opacity ${
+            hoursToDisplay ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {hoursToDisplay || 1}h
         </span>
       </div>
       <Timeline
