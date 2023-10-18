@@ -1,6 +1,6 @@
 import { Countdown } from "./Countdown/Countdown";
 import React, { useEffect, useState } from "react";
-import { getTime } from "@/utils/hooks/useCountdown";
+import { getTime } from "@/utils/helpers/timer.helper";
 import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
 
 export const Timer = () => {

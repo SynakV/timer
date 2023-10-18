@@ -1,16 +1,16 @@
 import { FC, useEffect } from "react";
 import { Timeline } from "../../Timeline/Timeline";
 import { playAudio } from "@/utils/helpers/audio.helper";
+import { useCountdown } from "@/utils/hooks/useCountdown";
+import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
+import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 import {
   getTime,
   getHours,
   getMinutes,
   getSeconds,
-  useCountdown,
   getDisplayTime,
-} from "@/utils/hooks/useCountdown";
-import { useSection } from "@/utils/contexts/SectionContext/SectionContext";
-import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
+} from "@/utils/helpers/timer.helper";
 
 interface Props {
   time: number;
@@ -76,25 +76,23 @@ export const Countdown: FC<Props> = ({ time, onTimeout, onBreakpoint }) => {
 
   const timeSpent = time - currentTime;
 
-  const minutesAndSecondsToDisplay = getDisplayTime({
-    minutes: section?.isRemainedTime ? minutes : getMinutes(timeSpent),
-    seconds: section?.isRemainedTime ? seconds : getSeconds(timeSpent),
-  });
-
-  const hoursToDisplay = section?.isRemainedTime ? hours : getHours(timeSpent);
+  const minutesAndSecondsToDisplay = getDisplayTime(
+    {
+      hours: section?.isRemainedTime ? hours : getHours(timeSpent),
+      minutes: section?.isRemainedTime ? minutes : getMinutes(timeSpent),
+      seconds: section?.isRemainedTime ? seconds : getSeconds(timeSpent),
+    },
+    "html"
+  );
 
   return (
     <>
-      <div className="relative flex flex-col" style={{ color: textColor }}>
-        <span className="transition-all">{minutesAndSecondsToDisplay}</span>
-        <span
-          className={`text-[3vw] translate-y-[-100%] transition-opacity ${
-            hoursToDisplay ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          {hoursToDisplay || 1}h
-        </span>
-      </div>
+      <span
+        style={{ color: textColor }}
+        className="relative transition-all flex justify-between"
+      >
+        {minutesAndSecondsToDisplay}
+      </span>
       <Timeline
         color={textColor}
         breakpoints={timelinePoints}

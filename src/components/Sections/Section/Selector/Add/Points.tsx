@@ -13,7 +13,7 @@ import {
   getMinutes,
   getSeconds,
   getDisplayTime,
-} from "@/utils/hooks/useCountdown";
+} from "@/utils/helpers/timer.helper";
 
 interface Props {
   points: number[];
@@ -38,11 +38,14 @@ export const Points: FC<Props> = ({ points, checked, onCheckChange }) => (
           >
             <Checkbox value={point} checked={checked.includes(point)} />
             <Label htmlFor="terms" className="font-mono">
-              {getDisplayTime({
-                hours: getHours(point),
-                minutes: getMinutes(point),
-                seconds: getSeconds(point),
-              })}
+              {getDisplayTime(
+                {
+                  hours: getHours(point),
+                  minutes: getMinutes(point),
+                  seconds: getSeconds(point),
+                },
+                "text"
+              )}
             </Label>
             <br />
           </div>

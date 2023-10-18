@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "../../../../ui/popover";
 import { Points } from "./Points";
-import { getTime } from "@/utils/hooks/useCountdown";
+import { getTime } from "@/utils/helpers/timer.helper";
 import { useSections } from "@/utils/contexts/SectionsContext/SectionsContext";
 
 type ValuesType = string | number | number[];

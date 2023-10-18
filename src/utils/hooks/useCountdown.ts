@@ -1,5 +1,6 @@
 import { useWorker } from "./useWorker";
 import { useEffect, useState } from "react";
+import { getHours, getMinutes, getSeconds } from "../helpers/timer.helper";
 
 export const useCountdown = (time: number, isStarted: boolean) => {
   const [countDown, setCountDown] = useState(time);
@@ -44,24 +45,3 @@ const getReturnValues = (countDown: number) => {
     seconds,
   };
 };
-
-export const getHours = (time: number) => Math.floor(time / 3600);
-export const getMinutes = (time: number) => Math.floor(time / 60);
-export const getSeconds = (time: number) => Math.floor(time % 60);
-
-export const getDisplayTime = (time: {
-  hours?: number;
-  minutes: number;
-  seconds: number;
-}) => {
-  const floorMinutes = Math.floor(time.minutes % 60);
-
-  return `${
-    time.hours ? (time.hours > 9 ? `${time.hours}:` : `0${time.hours}:`) : ""
-  }${floorMinutes > 9 ? floorMinutes : "0" + floorMinutes}:${
-    time.seconds > 9 ? time.seconds : "0" + time.seconds
-  }`;
-};
-
-export const getTime = (time: { minutes: number; seconds: number }) =>
-  time.minutes * 60 + time.seconds;
